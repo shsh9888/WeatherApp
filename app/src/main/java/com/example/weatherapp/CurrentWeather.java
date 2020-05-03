@@ -57,7 +57,6 @@ public class CurrentWeather extends AsyncTask<String, Void, String> {
             JSONObject mainWeather = jsonArray.getJSONObject(0);
             String description = mainWeather.getString("description");
             TextView weatherReport = (TextView) this._activity.findViewById(R.id.weatherReport);
-            System.out.println("ssssssssssssssadfsdfasfasfsdfasfsdafsafasdf " + description );
             weatherReport.setText(description);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -11,27 +11,25 @@ import android.widget.TextView;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
-    CurrentWeather currentWeather;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-         currentWeather = new CurrentWeather(this);
     }
 
 
     public void getWeather(View view) {
-        EditText cityView = (EditText) findViewById(R.id.cityEntered);
-        String city = cityView.getText().toString();
 
         try {
-            currentWeather.execute(city).get();
+            EditText cityView = (EditText) findViewById(R.id.cityEntered);
+            String city = cityView.getText().toString();
+            new CurrentWeather(this).execute(city).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 }
