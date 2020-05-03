@@ -1,6 +1,8 @@
 package com.example.weatherapp;
 
+import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +16,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class CurrentWeather extends AsyncTask<String, Void, String> {
+
+    Activity _activity;
+    public CurrentWeather(Activity activity) {
+        this._activity = activity;
+    }
 
     String result ="";
     @Override
@@ -48,7 +55,10 @@ public class CurrentWeather extends AsyncTask<String, Void, String> {
             String weather = jsonObject.getString("weather");
             JSONArray jsonArray = new JSONArray(weather);
             JSONObject mainWeather = jsonArray.getJSONObject(0);
-            System.out.println("ssssssssssssssadfsdfasfasfsdfasfsdafsafasdf " +  mainWeather.getString("description"));
+            String description = mainWeather.getString("description");
+            TextView weatherReport = (TextView) this._activity.findViewById(R.id.weatherReport);
+            System.out.println("ssssssssssssssadfsdfasfasfsdfasfsdafsafasdf " + description );
+            weatherReport.setText(description);
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {
