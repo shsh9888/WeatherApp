@@ -2,6 +2,7 @@ package com.example.weatherapp;
 
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,8 +20,8 @@ public class CurrentWeather extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... city) {
 
         try {
-            //http://api.openweathermap.org/data/2.5/weather?q=Boulder&APPID=7cfbf674d3192253ad4a2e16feae3f1e
-            URL url = new URL("https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=439d4b804bc8187953eb36d2a8c26a02");
+            String formedUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city[0] +"&APPID=7cfbf674d3192253ad4a2e16feae3f1e";
+            URL url = new URL(formedUrl);
             HttpURLConnection httpURLConnection =  (HttpURLConnection) url.openConnection();
             InputStream in = httpURLConnection.getInputStream();
             InputStreamReader reader = new InputStreamReader(in);
@@ -44,7 +45,10 @@ public class CurrentWeather extends AsyncTask<String, Void, String> {
         //Method gets executed after doInBackground
         try {
             JSONObject jsonObject = new JSONObject(result);
-            jsonObject.getString();
+            String weather = jsonObject.getString("weather");
+            JSONArray jsonArray = new JSONArray(weather);
+            JSONObject mainWeather = jsonArray.getJSONObject(0);
+            System.out.println("ssssssssssssssadfsdfasfasfsdfasfsdafsafasdf " +  mainWeather.getString("description"));
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (Exception e) {

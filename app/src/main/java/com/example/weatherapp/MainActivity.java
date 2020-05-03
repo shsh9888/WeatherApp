@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         CurrentWeather currentWeather = new CurrentWeather();
         try {
-            String jsonString = currentWeather.execute("").get();
+            String jsonString = currentWeather.execute("California").get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
